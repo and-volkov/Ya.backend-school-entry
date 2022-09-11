@@ -30,9 +30,7 @@ class FolderNode(BaseNode):
     url: None = None
 
 
-Items = Annotated[
-    FileNode | FolderNode, Field(discriminator='type')
-]
+Items = Annotated[FileNode | FolderNode, Field(discriminator='type')]
 
 
 class ImportNode(BaseModel):
@@ -64,6 +62,6 @@ class RetrieveFolderNode(BaseNode):
 RetrieveFolderNode.update_forward_refs()
 
 
-# class ImportRelation(BaseNode):
-#     parent_id = BaseNode.parentId
-#     children_id = BaseNode.id
+class NodeRelation(BaseModel):
+    parent_id: str
+    children_id: str
