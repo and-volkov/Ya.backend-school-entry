@@ -48,24 +48,19 @@ class ImportNode(BaseModel):
         return v
 
     class Config:
-        fields = {'parentId': {'exclude': True}}
         orm_mode = True
 
 
-class ResponseNode(BaseModel):
-    id: str
-    date: dt
-    parentId: str | None
-    type: ItemType
+class ResponseNode(BaseNode):
     url: str | None
     size: int
     children: list[ResponseNode] | None
 
-    @validator('date', pre=False)
+    @validator('date')
     def validate_date(cls, v):
         return v.strftime(DATE_FORMAT)
 
-    @validator('children', pre=False)
+    @validator('children')
     def validate_children(cls, v):
         if not v:
             return None
@@ -73,3 +68,7 @@ class ResponseNode(BaseModel):
 
     class Config:
         orm_mode = True
+
+
+class ResponseUpdates(BaseModel):
+    items: list[ResponseNode | None]
