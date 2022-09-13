@@ -8,7 +8,8 @@ class BaseSettings(pydantic.BaseSettings):
 
 
 class ApiSettings(BaseSettings):
-    title: str = 'Yandex Backend school september 2022. Disk app'
+    title: str = 'Yandex Backend school september 2022. Entry task'
+    description: str = 'Тестовое задание'
     host = 'HOST'
     port = 8000
     log_level: str = 'INFO'
@@ -24,5 +25,11 @@ class DBSettings(BaseSettings):
         env_prefix = 'DB_'
 
 
+class ErrorResponse(pydantic.BaseModel):
+    code: int
+    message: str
+
+
 api_settings = ApiSettings()
 db_settings = DBSettings()
+
