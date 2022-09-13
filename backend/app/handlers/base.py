@@ -9,6 +9,8 @@ from backend.db.schema import Node, ItemType
 
 
 class NodeHandler:
+    """Handler class for all node operations."""
+
     def __init__(self, db: Session):
         self.db = db
 
