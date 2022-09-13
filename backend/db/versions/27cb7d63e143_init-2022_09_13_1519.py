@@ -1,8 +1,8 @@
-"""initial
+"""init
 
-Revision ID: 556533be7244
+Revision ID: 27cb7d63e143
 Revises: 
-Create Date: 2022-09-11 22:37:42.354374
+Create Date: 2022-09-13 15:19:26.380221
 
 """
 from alembic import op
@@ -10,7 +10,7 @@ import sqlalchemy as sa
 from sqlalchemy.dialects import postgresql
 
 # revision identifiers, used by Alembic.
-revision = '556533be7244'
+revision = '27cb7d63e143'
 down_revision = None
 branch_labels = None
 depends_on = None
@@ -21,14 +21,14 @@ def upgrade() -> None:
     op.create_table('nodes',
     sa.Column('id', sa.String(), nullable=False),
     sa.Column('url', sa.String(), nullable=True),
-    sa.Column('date', sa.DateTime(), nullable=False),
+    sa.Column('date', sa.DateTime(timezone=True), nullable=False),
     sa.Column('parentId', sa.String(), nullable=True),
     sa.Column('type', postgresql.ENUM('file', 'folder', name='type'), nullable=False),
-    sa.Column('size', sa.Integer(), nullable=True),
-    sa.ForeignKeyConstraint(['parentId'], ['nodes.id'], name=op.f('fk__nodes__parentId__nodes'), ondelete='SET NULL'),
+    sa.Column('size', sa.Integer(), nullable=False),
+    sa.ForeignKeyConstraint(['parentId'], ['nodes.id'], name=op.f('fk__nodes__parentId__nodes'), ondelete='CASCADE'),
     sa.PrimaryKeyConstraint('id', name=op.f('pk__nodes'))
     )
-    op.create_index(op.f('ix__nodes__id'), 'nodes', ['id'], unique=True)
+    op.create_index(op.f('ix__nodes__id'), 'nodes', ['id'], unique=False)
     # ### end Alembic commands ###
 
 

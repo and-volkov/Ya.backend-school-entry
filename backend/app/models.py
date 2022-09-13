@@ -1,11 +1,13 @@
 from __future__ import annotations
 from datetime import datetime as dt
-from typing import Literal, Optional
+from typing import Literal
 from typing_extensions import Annotated
 
-from pydantic import BaseModel, Field, PositiveInt, validator, root_validator
+from pydantic import BaseModel, Field, PositiveInt, validator
 
 from backend.db.schema import ItemType
+
+DATE_FORMAT = '%Y-%m-%dT%H:%M:%SZ'
 
 
 class BaseNode(BaseModel):
@@ -39,9 +41,8 @@ class ImportNode(BaseModel):
 
     @validator('updateDate', pre=True)
     def validate_date(cls, v):
-        format_string = '%Y-%m-%dT%H:%M:%SZ'
         try:
-            dt.strptime(v, format_string)
+            dt.strptime(v, DATE_FORMAT)
         except Exception:
             raise ValueError('Invalid date format, use ISO 8601')
         return v
@@ -51,17 +52,24 @@ class ImportNode(BaseModel):
         orm_mode = True
 
 
-class RetrieveFileNode(BaseNode):
-    children: None
+class ResponseNode(BaseModel):
+    id: str
+    date: dt
+    parentId: str | None
+    type: ItemType
+    url: str | None
+    size: int
+    children: list[ResponseNode] | None
 
+    @validator('date', pre=False)
+    def validate_date(cls, v):
+        return v.strftime(DATE_FORMAT)
 
-class RetrieveFolderNode(BaseNode):
-    children: list[RetrieveFolderNode | RetrieveFileNode] = []
+    @validator('children', pre=False)
+    def validate_children(cls, v):
+        if not v:
+            return None
+        return v
 
-
-RetrieveFolderNode.update_forward_refs()
-
-
-class NodeRelation(BaseModel):
-    parent_id: str
-    children_id: str
+    class Config:
+        orm_mode = True

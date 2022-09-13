@@ -9,7 +9,15 @@ class NodeHandler:
     def __init__(self, db: Session):
         self.db = db
 
-    def insert_or_update_nodes(self, input_nodes: ImportNode) -> None:
+    def get_node(self, node_id) -> Node:
+        return self.db.query(Node).filter(Node.id == node_id).first()
+
+    def delete_node(self, node_id) -> None:
+        self.db.query(Node).filter(Node.id == node_id).delete()
+        self.db.commit()
+
+    @classmethod
+    def process_node(cls, input_nodes: ImportNode) -> list[Node]:
         node_items = input_nodes.items
         date = input_nodes.updateDate
 
@@ -17,19 +25,21 @@ class NodeHandler:
             item.date = date
             if item.type == 'FOLDER':
                 item.type = ItemType.folder
+                item.size = 0
             else:
                 item.type = ItemType.file
+        return node_items
 
-        nodes = [n.dict() for n in node_items]
-        stmt = insert(Node).values(nodes)
+    def insert_or_update(self, values: dict | list[dict]) -> None:
+        stmt = insert(Node).values(values)
         stmt = stmt.on_conflict_do_update(
-            index_elements=['id'],
-            set_=dict(stmt.excluded)
+            index_elements=['id'], set_=dict(stmt.excluded)
         )
         self.db.execute(stmt)
         self.db.commit()
 
-    def get_node(self, node_id: str) -> Node:
-        node = self.db.query(Node).filter(Node.id == node_id).cte(recursive=True)
-        print(node)
-        return node
+    def insert_or_update_nodes(self, input_nodes: ImportNode) -> None:
+        node_items = self.process_node(input_nodes)
+
+        nodes = [node.dict() for node in node_items]
+        self.insert_or_update(nodes)

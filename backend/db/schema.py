@@ -8,7 +8,6 @@ from sqlalchemy import (
     ForeignKey,
     MetaData,
     String,
-    Table,
     UniqueConstraint,
 )
 from sqlalchemy.orm import relationship
@@ -29,13 +28,6 @@ convention = {
 
 Base.metadata = MetaData(naming_convention=convention)
 
-relations_table = Table(
-    'relations_table',
-    Base.metadata,
-    Column('parent_id', String, ForeignKey('nodes.id'), primary_key=True),
-    Column('child_id', String, ForeignKey('nodes.id'), primary_key=True)
-)
-
 
 @unique
 class ItemType(Enum):
@@ -46,19 +38,15 @@ class ItemType(Enum):
 class Node(Base):
     __tablename__ = 'nodes'
 
-    id = Column(String, primary_key=True, index=True, unique=True)
+    id = Column(String, primary_key=True, index=True)
     url = Column(String, nullable=True)
-    date = Column(DateTime, nullable=False)
+    date = Column(DateTime(timezone=True), nullable=False)
     parentId = Column(
-        ForeignKey('nodes.id', ondelete='SET NULL'), nullable=True
+        ForeignKey('nodes.id', ondelete='CASCADE'), nullable=True
     )
     type = Column(PgEnum(ItemType, name='type'), nullable=False)
-    size = Column(Integer, nullable=True)
+    size = Column(Integer, default=0, nullable=False)
     children = relationship(
-        'Node',
-        secondary=relations_table,
-        primaryjoin=id == relations_table.c.parent_id,
-        secondaryjoin=id == relations_table.c.child_id,
-        backref='parent'
+        'Node', lazy='joined', join_depth=2, cascade='all, delete'
     )
     UniqueConstraint('id', 'parentId')

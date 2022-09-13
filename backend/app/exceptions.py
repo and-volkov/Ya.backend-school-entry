@@ -14,7 +14,6 @@ async def validation_error_handler(
             {
                 'code': 400,
                 'message': 'Validation error',
-                'detail': exc.errors(),
             }
         ),
     )
