@@ -1,3 +1,6 @@
+import datetime
+
+from sqlalchemy import and_
 from sqlalchemy.orm import Session
 from sqlalchemy.dialects.postgresql import insert
 
@@ -43,3 +46,15 @@ class NodeHandler:
 
         nodes = [node.dict() for node in node_items]
         self.insert_or_update(nodes)
+
+    def get_node_updates(self, date: datetime):
+        delta = datetime.timedelta(hours=24)
+        start_date = date - delta
+        return (
+            self.db.query(Node)
+            .filter(and_(
+                Node.date.between(start_date, date),
+                Node.type == ItemType.file)
+            )
+            .all()
+        )
