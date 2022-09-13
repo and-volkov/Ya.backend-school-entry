@@ -10,7 +10,7 @@ class BaseSettings(pydantic.BaseSettings):
 class ApiSettings(BaseSettings):
     title: str = 'Yandex Backend school september 2022. Disk app'
     host = 'HOST'
-    port = 80
+    port = 8000
     log_level: str = 'INFO'
 
     class Config:

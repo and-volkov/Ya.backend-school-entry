@@ -8,8 +8,8 @@ import urllib.error
 import urllib.parse
 import urllib.request
 
-API_BASEURL = "http://localhost:8080"
-
+# API_BASEURL = "http://localhost:8080"
+API_BASEURL = 'http://0.0.0.0:80'
 ROOT_ID = "069cb8d7-bbdd-47d3-ad8f-82ef4c269df1"
 
 IMPORT_BATCHES = [
@@ -270,8 +270,8 @@ def test_delete():
 def test_all():
     test_import()
     test_nodes()
-    test_updates()
-    test_history()
+    # test_updates()
+    # test_history()
     test_delete()
 
 
