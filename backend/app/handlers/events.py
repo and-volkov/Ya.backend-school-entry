@@ -3,7 +3,7 @@ from sqlalchemy.orm import Session
 from backend.db.schema import Node, ItemType
 
 
-def update_size(session: Session) -> None:
+def update_size_and_date(session: Session) -> None:
     """Update folders size before any commit."""
     stmt = (
         session.query(Node)
