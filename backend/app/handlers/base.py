@@ -52,9 +52,11 @@ class NodeHandler:
         start_date = date - delta
         return (
             self.db.query(Node)
-            .filter(and_(
-                Node.date.between(start_date, date),
-                Node.type == ItemType.file)
+            .filter(
+                and_(
+                    Node.date.between(start_date, date),
+                    Node.type == ItemType.file,
+                )
             )
             .all()
         )
