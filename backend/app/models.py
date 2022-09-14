@@ -3,7 +3,7 @@ from datetime import datetime as dt
 from typing import Literal
 from typing_extensions import Annotated
 
-from pydantic import BaseModel, Field, PositiveInt, validator
+from pydantic import BaseModel, Extra, Field, PositiveInt, validator
 
 from backend.db.schema import ItemType
 
@@ -25,11 +25,17 @@ class FileNode(BaseNode):
     url: str = Field(max_length=255)
     size: PositiveInt
 
+    class Config:
+        extra = Extra.forbid
+
 
 class FolderNode(BaseNode):
     type: Literal['FOLDER']
     size: None = None
     url: None = None
+
+    class Config:
+        extra = Extra.forbid
 
 
 Items = Annotated[FileNode | FolderNode, Field(discriminator='type')]
