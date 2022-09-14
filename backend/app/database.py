@@ -1,7 +1,10 @@
 from sqlalchemy import create_engine
 from sqlalchemy.orm import sessionmaker
+from dotenv import load_dotenv
 
 from backend.app.settings import db_settings
+
+load_dotenv()
 
 DB_URL = db_settings.uri
 
