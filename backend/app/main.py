@@ -65,7 +65,7 @@ async def import_node(items: models.ImportNode, db: Session = Depends(get_db)):
         NodeHandler(db).insert_or_update_nodes(items)
     except Exception as e:
         logger.error(e)
-        raise HTTPException(status_code=503)
+        raise RequestValidationError(e)
     return status.HTTP_200_OK
 
 
