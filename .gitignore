@@ -132,3 +132,5 @@ dmypy.json
 deploy/dev.yml
 
 .DS_Store
+expected.json
+response.json
