@@ -14,3 +14,7 @@ async def validation_error_handler(
         status_code=status.HTTP_400_BAD_REQUEST,
         content=jsonable_encoder(error_message),
     )
+
+
+def not_found():
+    return JSONResponse({'code': 404, 'message': 'Not Found'}, status_code=404)
