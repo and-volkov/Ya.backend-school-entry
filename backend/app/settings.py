@@ -15,7 +15,7 @@ class BaseSettings(pydantic.BaseSettings):
 class ApiSettings(BaseSettings):
     title: str = 'Yandex Backend school september 2022. Entry task'
     description: str = 'Тестовое задание'
-    host = 'HOST'
+    host = '0.0.0.0'
     port = 8000
 
     class Config:
@@ -68,7 +68,9 @@ class LogConfig(pydantic.BaseModel):
         'fileHandler': {
             'level': 'ERROR',
             'formatter': 'fileFormatter',
-            'filename': os.getenv('LOG_DIR'),
+            'filename': os.getenv(
+                'LOG_DIR', default="/backend/backend/logs/diskapp.log"
+            ),
             'class': 'logging.FileHandler',
             'mode': 'a',
         },
