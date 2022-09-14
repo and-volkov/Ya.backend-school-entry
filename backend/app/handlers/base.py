@@ -3,6 +3,8 @@ import datetime
 from sqlalchemy import and_
 from sqlalchemy.orm import Session
 from sqlalchemy.dialects.postgresql import insert
+from fastapi import HTTPException
+from fastapi.exceptions import RequestValidationError, ValidationError
 
 from backend.app.models import ImportNode
 from backend.db.schema import Node, ItemType
@@ -21,8 +23,7 @@ class NodeHandler:
         self.db.query(Node).filter(Node.id == node_id).delete()
         self.db.commit()
 
-    @classmethod
-    def process_node(cls, input_nodes: ImportNode) -> list[Node]:
+    def process_node(self, input_nodes: ImportNode) -> list[Node]:
         node_items = input_nodes.items
         date = input_nodes.updateDate
 
@@ -33,6 +34,12 @@ class NodeHandler:
                 item.size = 0
             else:
                 item.type = ItemType.file
+            parent_item = self.get_node(item.parentId)
+            if (
+                parent_item and
+                parent_item.type == ItemType.file
+            ):
+                raise ValueError
         return node_items
 
     def insert_or_update(self, values: dict | list[dict]) -> None:
