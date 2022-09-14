@@ -129,3 +129,6 @@ dmypy.json
 .pyre/
 
 .idea
+deploy/dev.yml
+
+.DS_Store
