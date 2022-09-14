@@ -22,13 +22,6 @@ class ApiSettings(BaseSettings):
         env_prefix = 'API_'
 
 
-class DBSettings(BaseSettings):
-    uri = 'URI'
-
-    class Config:
-        env_prefix = 'DB_'
-
-
 class ErrorResponse(pydantic.BaseModel):
     """Models for docs."""
 
@@ -89,4 +82,3 @@ class LogConfig(pydantic.BaseModel):
 
 
 api_settings = ApiSettings()
-db_settings = DBSettings()
