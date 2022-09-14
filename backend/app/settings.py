@@ -1,4 +1,9 @@
+import os
+
 import pydantic
+from dotenv import load_dotenv
+
+load_dotenv()
 
 
 class BaseSettings(pydantic.BaseSettings):
@@ -70,7 +75,7 @@ class LogConfig(pydantic.BaseModel):
         'fileHandler': {
             'level': 'ERROR',
             'formatter': 'fileFormatter',
-            'filename': 'logs/diskapp.log',
+            'filename': os.getenv('LOG_DIR'),
             'class': 'logging.FileHandler',
             'mode': 'a',
         },
