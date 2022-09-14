@@ -3,8 +3,6 @@ import datetime
 from sqlalchemy import and_
 from sqlalchemy.orm import Session
 from sqlalchemy.dialects.postgresql import insert
-from fastapi import HTTPException
-from fastapi.exceptions import RequestValidationError, ValidationError
 
 from backend.app.models import ImportNode
 from backend.db.schema import Node, ItemType
@@ -35,10 +33,7 @@ class NodeHandler:
             else:
                 item.type = ItemType.file
             parent_item = self.get_node(item.parentId)
-            if (
-                parent_item and
-                parent_item.type == ItemType.file
-            ):
+            if parent_item and parent_item.type == ItemType.file:
                 raise ValueError
         return node_items
 
