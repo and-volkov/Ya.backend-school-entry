@@ -3,7 +3,7 @@ services:
 
   db:
     image: 'postgres:${POSTGRES_VERSION}'
-    restart: unless-stopped
+    restart: always
     volumes:
       - ${POSTGRES_VOLUME}:/var/lib/postgresql/data
     ports:
@@ -14,16 +14,15 @@ services:
       POSTGRES_DB: ${POSTGRES_DB}
       PGDATA: var/lib/postgresql/data/pgdata
   app:
-#    image: andvolkov/ya.entry:latest
-    build: ../backend
-    restart: unless-stopped
+    image: andvolkov/backend-school:latest
+    restart: always
     command:
       uvicorn main:app --reload --workers 4 --host 0.0.0.0 --port 8000
     depends_on:
       - db
   nginx:
     image: nginx:1.21.3-alpine
-    restart: unless-stopped
+    restart: always
     ports:
       - "80:80"
     volumes:

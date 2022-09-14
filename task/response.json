@@ -1,6 +1,15 @@
 {
   "children": [
     {
+      "children": null,
+      "date": "2022-09-13T12:00:00Z",
+      "id": "1cc0129a-2afe-474c-9ee6-d435bf5fc8f2",
+      "parentId": "069cb8d7-bbdd-47d3-ad8f-82ef4c269df1",
+      "size": 0,
+      "type": "FOLDER",
+      "url": null
+    },
+    {
       "children": [
         {
           "children": null,
@@ -22,18 +31,54 @@
         },
         {
           "children": null,
+          "date": "2022-09-13T12:00:00Z",
+          "id": "74b81fda-9qdc-4b63-8927-c978afed5cf4",
+          "parentId": "1cc0129a-2bfe-474c-9ee6-d435bf5fc8f2",
+          "size": 1024,
+          "type": "FILE",
+          "url": "/file/url4"
+        },
+        {
+          "children": null,
+          "date": "2022-09-13T12:00:00Z",
+          "id": "74ba1fda-9cdc-4b63-8927-c978afed5cf4",
+          "parentId": "1cc0129a-2bfe-474c-9ee6-d435bf5fc8f2",
+          "size": 1024,
+          "type": "FILE",
+          "url": "/file/url4"
+        },
+        {
+          "children": null,
           "date": "2022-02-03T12:00:00Z",
           "id": "98883e8f-0507-482f-bce2-2fb306cf6483",
           "parentId": "1cc0129a-2bfe-474c-9ee6-d435bf5fc8f2",
           "size": 512,
           "type": "FILE",
           "url": "/file/url3"
+        },
+        {
+          "children": null,
+          "date": "2022-09-13T12:00:00Z",
+          "id": "98883e8f-05f7-482f-bce2-2fb306cf6483",
+          "parentId": "1cc0129a-2bfe-474c-9ee6-d435bf5fc8f2",
+          "size": 512,
+          "type": "FILE",
+          "url": "/file/url3"
         }
       ],
-      "date": "2022-02-03T12:00:00Z",
+      "date": "2022-09-13T12:00:00Z",
       "id": "1cc0129a-2bfe-474c-9ee6-d435bf5fc8f2",
       "parentId": "069cb8d7-bbdd-47d3-ad8f-82ef4c269df1",
-      "size": 1600,
+      "size": 4160,
+      "type": "FOLDER",
+      "url": null
+    },
+    {
+      "children": null,
+      "date": "2022-09-13T12:00:00Z",
+      "id": "1cc0129a-2fe-474c-9ee6-d435bf5fc8f2",
+      "parentId": "069cb8d7-bbdd-47d3-ad8f-82ef4c269df1",
+      "size": 0,
       "type": "FOLDER",
       "url": null
     },
@@ -66,10 +111,10 @@
       "url": null
     }
   ],
-  "date": "2022-02-01T12:00:00Z",
+  "date": "2022-09-13T12:00:00Z",
   "id": "069cb8d7-bbdd-47d3-ad8f-82ef4c269df1",
   "parentId": null,
-  "size": 1984,
+  "size": 4544,
   "type": "FOLDER",
   "url": null
 }
