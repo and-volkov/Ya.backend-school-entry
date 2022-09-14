@@ -25,8 +25,20 @@ class DBSettings(BaseSettings):
 
 
 class ErrorResponse(pydantic.BaseModel):
+    """Models for docs."""
+
     code: int
     message: str
+
+
+class ValidationErrorResponse(ErrorResponse):
+    code: int = 400
+    message: str = 'Validation Failed'
+
+
+class NotFoundResponse(ErrorResponse):
+    code: int = 404
+    message: str = 'Item not found'
 
 
 class LogConfig(pydantic.BaseModel):
@@ -44,7 +56,7 @@ class LogConfig(pydantic.BaseModel):
         },
         'fileFormatter': {
             'format': '%(asctime)s - %(levelname)s -  %(name)s - %(module)s '
-                      '- %(funcName)s - %(message)s',
+            '- %(funcName)s - %(message)s',
             'datefmt': '%Y-%m-%d %H:%M:%S',
             'class': 'logging.Formatter',
         },
