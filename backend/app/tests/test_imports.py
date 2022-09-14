@@ -3,9 +3,6 @@ import json
 from fastapi.testclient import TestClient
 
 from backend.app.main import app
-from backend.app.models import DATE_FORMAT
-from backend.app.handlers.base import NodeHandler
-from backend.db.schema import Node
 
 client = TestClient(app)
 
