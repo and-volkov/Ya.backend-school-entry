@@ -36,7 +36,7 @@ class ValidationErrorResponse(ErrorResponse):
 
 class NotFoundResponse(ErrorResponse):
     code: int = 404
-    message: str = 'Item not found'
+    message: str = 'Item Not Found'
 
 
 class LogConfig(pydantic.BaseModel):
