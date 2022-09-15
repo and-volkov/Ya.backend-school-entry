@@ -5,6 +5,9 @@ from dotenv import load_dotenv
 
 load_dotenv()
 
+if not os.path.exists('/backend/backend/logs/diskapp.log'):
+    os.mknod('/backend/backend/logs/diskapp.log')
+
 
 class BaseSettings(pydantic.BaseSettings):
     class Config:
