@@ -53,6 +53,12 @@ FILE_ITEM = {
     "size": 256,
 }
 
+FOLDER_ITEM = {
+    "type": "FOLDER",
+    "id": "d515e43f-f3f6-4471-bb77-6b455017a2d2",
+    "parentId": "069cb8d7-bbdd-47d3-ad8f-82ef4c269df1",
+}
+
 
 @pytest.fixture(scope='function')
 def incorrect_import_type():
@@ -147,5 +153,36 @@ def incorrect_date_format():
     data = {
         "items": [FILE_ITEM],
         "updateDate": "2022-02-01T12:00:00",
+    }
+    return data
+
+
+@pytest.fixture(scope='function')
+def folder_has_size():
+    test_item = FOLDER_ITEM.copy()
+    test_item['size'] = 256
+    data = {
+        "items": [test_item],
+        "updateDate": "2022-02-01T12:00:00Z",
+    }
+    return data
+
+
+@pytest.fixture(scope='function')
+def folder_has_url():
+    test_item = FOLDER_ITEM.copy()
+    test_item['url'] = '/file/url2'
+    data = {
+        "items": [test_item],
+        "updateDate": "2022-02-01T12:00:00Z",
+    }
+    return data
+
+
+@pytest.fixture(scope='function')
+def items_with_same_id():
+    data = {
+        "items": [FILE_ITEM, FILE_ITEM],
+        "updateDate": "2022-02-01T12:00:00Z",
     }
     return data
