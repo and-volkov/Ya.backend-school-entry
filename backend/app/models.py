@@ -21,6 +21,7 @@ class BaseNode(BaseModel):
 
 
 class FileNode(BaseNode):
+    """FileNode Validation model."""
     type: Literal['FILE']
     url: str = Field(max_length=255)
     size: PositiveInt
@@ -30,6 +31,7 @@ class FileNode(BaseNode):
 
 
 class FolderNode(BaseNode):
+    """FolderNode Validation model."""
     type: Literal['FOLDER']
     size: None = None
     url: None = None
@@ -38,10 +40,12 @@ class FolderNode(BaseNode):
         extra = Extra.forbid
 
 
+# List of possible Node Schemas.
 Items = Annotated[FileNode | FolderNode, Field(discriminator='type')]
 
 
 class ImportNode(BaseModel):
+    """Import Validation."""
     items: list[Items] = Field(unique_items=True)
     updateDate: str
 
@@ -58,16 +62,19 @@ class ImportNode(BaseModel):
 
 
 class ResponseNode(BaseNode):
+    """Preprocess response model."""
     url: str | None
     size: int
     children: list[ResponseNode] | None
 
     @validator('date')
     def validate_date(cls, v):
+        """Convert datetime to api format."""
         return v.strftime(DATE_FORMAT)
 
     @validator('children')
     def validate_children(cls, v):
+        """Set children for file = null."""
         if not v:
             return None
         return v
