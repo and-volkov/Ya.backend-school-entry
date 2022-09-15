@@ -17,4 +17,6 @@ async def validation_error_handler(
 
 
 def not_found():
-    return JSONResponse({'code': 404, 'message': 'Not Found'}, status_code=404)
+    return JSONResponse(
+        {'code': 404, 'message': 'Item Not Found'}, status_code=404
+    )
