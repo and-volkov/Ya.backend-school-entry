@@ -68,9 +68,7 @@ class LogConfig(pydantic.BaseModel):
         'fileHandler': {
             'level': 'ERROR',
             'formatter': 'fileFormatter',
-            'filename': os.getenv(
-                'LOG_DIR', default="/backend/backend/logs/diskapp.log"
-            ),
+            'filename': '/backend/backend/logs/diskapp.log',
             'class': 'logging.FileHandler',
             'mode': 'a',
         },

@@ -19,7 +19,7 @@ config.set_main_option(
     "sqlalchemy.url",
     os.getenv(
         'POSTGRES_URI',
-        default="postgresql+psycopg2://andrey:example@db:5432/disk",
+        default="postgresql+psycopg2://root:example@db:5432/disk",
     ),
 )
 

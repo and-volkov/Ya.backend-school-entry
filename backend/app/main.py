@@ -17,9 +17,6 @@ from backend.app.handlers.base import NodeHandler
 from backend.app.handlers.events import update_size_and_date
 from backend.app.validators import validate_date
 
-if not os.path.exists('/backend/backend/logs'):
-    os.mknod('/backend/backend/logs/')
-    open('/backend/backend/logs/diskapp.log', 'w').close()
 
 dictConfig(settings.LogConfig().dict())
 logger = logging.getLogger('diskapp')
