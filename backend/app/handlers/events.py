@@ -4,7 +4,7 @@ from backend.db.schema import Node, ItemType
 
 
 def update_size_and_date(session: Session) -> None:
-    """Update folders size before any commit."""
+    """Update folders size and date before any commit."""
     stmt = (
         session.query(Node)
         .filter(Node.type == ItemType.folder)

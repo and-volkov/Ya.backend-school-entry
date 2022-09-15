@@ -46,6 +46,7 @@ def get_db():
 
 @app.on_event('startup')
 async def startup_event():
+    """Checking db health on startup."""
     logger.info('App started')
     try:
         db = SessionLocal()
