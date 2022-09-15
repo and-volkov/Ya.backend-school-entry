@@ -16,6 +16,26 @@
 - Alembic 1.8.1
 - Uvicorn 0.17.6
 
+## Сервер
+На сервере используется только папка deploy. Запуск происходит с помощью docker-compose.
+Из корня пользователя ubuntu необходимо выполнить следующие команды
+
+```sh
+cd diskapp/deploy
+sudo docker-compose up -d
+```
+Выполнить миграции
+```sh
+sudo docker-compose exec app alembic upgrade head
+```
+Запуск тестов
+```sh
+sudo docker-compose exec app pytest -v
+```
+
+Настроены volume для БД и логов. 
+
+После рестарта сервера контейнеры перезапускаются.
 
 ## Установка
 
@@ -37,6 +57,8 @@ echo POSTGRES_PASSWORD="example" >> .env
 echo POSTGRES_DB="disk" >> .env
 echo APP_LOG="/home/ubuntu/diskapp/logs" >> .env
 ```
+При необходимости измените настройки nginx/default.conf.
+
 Контейнер с приложением загружается из DockerHub. После создания .env файла необходимо выполнить команду (Используйте sudo при необходимости):
 ```sh
 docker-compose up -d
