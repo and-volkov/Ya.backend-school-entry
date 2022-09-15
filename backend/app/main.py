@@ -2,7 +2,7 @@ import logging
 from logging.config import dictConfig
 
 import uvicorn
-from fastapi import Depends, FastAPI, HTTPException, status
+from fastapi import Depends, FastAPI, HTTPException, Path, status
 from fastapi.exceptions import ValidationError, RequestValidationError
 from sqlalchemy import event
 from sqlalchemy.orm import Session
@@ -76,7 +76,11 @@ async def import_node(items: models.ImportNode, db: Session = Depends(get_db)):
         status.HTTP_404_NOT_FOUND: {'model': settings.NotFoundResponse}
     },
 )
-async def get_node(id: str, db: Session = Depends(get_db)):
+async def get_node(
+    id: str = Path(regex='^[a-zA-Z0-9-_]*$', min_length=1),
+    db: Session = Depends(get_db),
+):
+    logger.info(id)
     try:
         node = NodeHandler(db).get_node(id)
     except Exception as e:
@@ -94,7 +98,9 @@ async def get_node(id: str, db: Session = Depends(get_db)):
     },
 )
 async def delete_node(
-    id: str, date: str = Depends(validate_date), db: Session = Depends(get_db)
+    id: str = Path(regex='^[a-zA-Z0-9-_]*$', min_length=1),
+    date: str = Depends(validate_date),
+    db: Session = Depends(get_db),
 ):
     node = NodeHandler(db).get_node(id)
     if not node:
