@@ -1,5 +1,3 @@
-import os
-
 import pydantic
 from dotenv import load_dotenv
 
