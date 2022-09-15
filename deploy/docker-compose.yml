@@ -16,6 +16,8 @@ services:
   app:
     image: andvolkov/backend-school:latest
     restart: always
+    volumes:
+      - ${APP_LOG}:/backend/backend/logs/
     command:
       uvicorn main:app --reload --workers 4 --host 0.0.0.0 --port 8000
     depends_on:
