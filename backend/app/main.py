@@ -1,3 +1,4 @@
+import os
 import logging
 from logging.config import dictConfig
 
@@ -15,6 +16,9 @@ from backend.app.exceptions import not_found, validation_error_handler
 from backend.app.handlers.base import NodeHandler
 from backend.app.handlers.events import update_size_and_date
 from backend.app.validators import validate_date
+
+if not os.path.exists('/backend/backend/logs/diskapp.log'):
+    os.mknod('/backend/backend/logs/diskapp.log')
 
 dictConfig(settings.LogConfig().dict())
 logger = logging.getLogger('diskapp')
