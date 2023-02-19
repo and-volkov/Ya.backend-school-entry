@@ -1,14 +1,14 @@
 # Ya.backend-school-entry
 
-##  Tестовоe заданиe в Школу Бэкенд Разработки Яндекс
+##  Test task for Yandex Backend School
 
-[Задание](task/Task.md)
+[Task](task/Task.md)
 
 [Api ROOT](https://likewise-1825.usr.yandex-academy.ru)
 
 [Api Docs (Redoc)](https://likewise-1825.usr.yandex-academy.ru/redoc)
 
-## Технологии
+## Tech Stack
 - Python 3.10
 - Fastapi 0.82.0
 - SQLAlchemy 1.4.41
@@ -16,37 +16,35 @@
 - Alembic 1.8.1
 - Uvicorn 0.17.6
 
-## Сервер
-На сервере используется только папка deploy. Запуск происходит с помощью docker-compose.
-Из корня пользователя ubuntu необходимо выполнить следующие команды
+## Server
+On server used only deploy folder. Application starting with docker-compose file.
+From root derectory of ubuntu user run following commands.
 
 ```sh
 cd diskapp/deploy
 sudo docker-compose up -d
 ```
-Выполнить миграции
+Run migrations
 ```sh
 sudo docker-compose exec app alembic upgrade head
 ```
-Запуск тестов
+Run tests
 ```sh
 sudo docker-compose exec app pytest -v
 ```
 
-Настроены volume для БД и логов. 
+After server restart containers are starting automatically
 
-После рестарта сервера контейнеры перезапускаются.
+## Setup
 
-## Установка
-
-Клонируйте репозиторий.
+Clone repo
 ```sh
 git clone git@github.com:and-volkov/Ya.backend-school-entry.git
 ```
-## Запуск производится с помощью Docker
-В папке деплой необходимо создать файл .env. [Образец](deploy/example.env)
+## Start with docker
+In deploy folder create .env file. [Example](deploy/example.env)
 
-Или воспользуйтесь дефолтными значениями.
+Or use default settings
 ```sh
 cd Ya.backend-school-entry/deploy
 touch .env
@@ -57,20 +55,20 @@ echo POSTGRES_PASSWORD="example" >> .env
 echo POSTGRES_DB="disk" >> .env
 echo APP_LOG="/home/ubuntu/diskapp/logs" >> .env
 ```
-При необходимости измените настройки nginx/default.conf.
+Change nginx config if needed nginx/default.conf.
 
-Контейнер с приложением загружается из DockerHub. После создания .env файла необходимо выполнить команду (Используйте sudo при необходимости):
+Container with application is pulled from docker hub. After creation of .env file, run following commands:
 ```sh
 docker-compose up -d
 ```
-После запуска контейнера выполните миграции.
+After container starts run migrations.
 ```sh
 docker-compose exec app alembic upgrade head
 ```
-Проверить, что все работает верно, можно выполнив тесты.
+Run tests
 ```sh
 docker-compose exec app pytest -v
 ```
-Сервер будет доступен по адресу http://0.0.0.0:80/
+Server started locally at http://0.0.0.0:80/
 
-[Документация](http://0.0.0.0:80/redoc)
+[Documentation](http://0.0.0.0:80/redoc)
